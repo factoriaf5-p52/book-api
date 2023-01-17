@@ -17,10 +17,16 @@ describe('BooksController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
-  it('should return "findAll working"', () => {
+  it('findAll should return "findAll working"', () => {
     expect(controller.findAll()).toBe('findAll working');
   });
-  it('should return "findBook working with bookId:5"', () => {
+  it('findBook(5) should return "findBook working with bookId:5"', () => {
     expect(controller.findBook('5')).toBe('findBook working with bookId:5');
+  });
+  it('createBook(newBook) should return newBook',()=> {
+    const newBook = {
+      info: 'info',
+    };
+    expect(controller.createBook(newBook)).toBe(newBook);
   });
 });
