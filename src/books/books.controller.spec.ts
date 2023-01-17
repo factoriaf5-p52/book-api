@@ -20,4 +20,7 @@ describe('BooksController', () => {
   it('should return "findAll working"', () => {
     expect(controller.findAll()).toBe('findAll working');
   });
+  it('should return "findBook working with bookId:5"', () => {
+    expect(controller.findBook('5')).toBe('findBook working with bookId:5');
+  });
 });

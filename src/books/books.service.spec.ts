@@ -18,4 +18,7 @@ describe('BooksService', () => {
   it('findAll should return "findAll working"', () => {
     expect(service.findAll()).toBe('findAll working');
   });
+  it('findBook should return "findBook working with bookId:5"', () => {
+    expect(service.findBook('5')).toBe('findBook working with bookId:5');
+  });
 });
