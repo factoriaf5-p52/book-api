@@ -16,10 +16,10 @@ describe('BooksService', () => {
     expect(service).toBeDefined();
   });
   it('findAll should return "findAll working"', () => {
-    expect(service.findAll([])).toBe('findAll working');
+    expect(service.findAll()).toBe('findAll working');
   });
   it('findAll with query param sort = 1 should return "findAll working with 1"', () => {
-    expect(service.findAll(['1'])).toBe('findAll working with 1');
+    expect(service.findAll({ sort: '1' })).toBe('findAll working with 1');
   });
   it('findBook should return "findBook working with bookId:5"', () => {
     expect(service.findBook('5')).toBe('findBook working with bookId:5');

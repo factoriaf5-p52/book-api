@@ -6,11 +6,14 @@ export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
   @Get()
-  findAll(@Query('sort') sort?: string) {
-    const params = [];
-    if (sort != undefined) {
-      params.push(`${sort}`);
-    }
+  //   findAll(@Query('sort') sort?: string) {
+  //     const params = [];
+  //     if (sort != undefined) {
+  //       params.push(`${sort}`);
+  //     }
+  //     return this.booksService.findAll(params);
+  //   }
+  findAll(@Query() params?: any) {
     return this.booksService.findAll(params);
   }
 
