@@ -40,4 +40,16 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect('findAll working with 1');
   });
+  it('/books (POST)', async () => {
+    return request(app.getHttpServer())
+      .post('/books')
+      .send({newBook:'myBook'})
+      .expect(201)
+      .expect({newBook:'myBook'})
+    // const response = await request(app.getHttpServer())
+    //   .post('/books')
+    //   .send({ newBook: 'myBook' });
+    // expect(response.statusCode).toBe(201);
+    // expect(response).toBe({ newBook: 'myBook' });
+  });
 });

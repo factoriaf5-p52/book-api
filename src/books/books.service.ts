@@ -36,9 +36,7 @@ export class BooksService {
     return `deleted with bookId: ${bookId}`;
   }
 
-  updateBook(bookId: string, newBook: any){
+  updateBook(bookId: string, newBook: any) {
     return `updated book: ${bookId} with ${JSON.stringify(newBook)}`;
   }
-
-
 }
