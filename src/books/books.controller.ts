@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { BooksService } from './books.service';
 
 @Controller('books')
@@ -26,5 +35,16 @@ export class BooksController {
   createBook(@Body() body) {
     const newBook: any = body;
     return this.booksService.createBook(newBook);
+  }
+
+  @Delete(':bookId')
+  deleteBook(@Param('bookId') id: any) {
+    return this.booksService.deleteBook(id);
+  }
+
+  @Put(':bookId')
+  updateBook(@Body() body:any, @Param('bookId') bookId:any){
+    const newBook: any = body;
+    return this.booksService.updateBook(bookId, newBook);
   }
 }
