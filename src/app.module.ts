@@ -8,7 +8,8 @@ import { BooksModule } from './books/books.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
+    TypeOrmModule.forRoot(
+      {
       type: 'mysql',
       host: 'localhost',
       port: 3306,
@@ -17,7 +18,8 @@ import { BooksModule } from './books/books.module';
       database: 'books',
       entities: ['dist/**/*.entity.js'],
       synchronize: true,
-    }),
+    }
+    ),
     BooksModule,
   ],
   controllers: [AppController],
