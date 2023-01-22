@@ -8,15 +8,16 @@ import { Model } from 'mongoose';
 @Injectable()
 export class BooksService {
   constructor(
-    @InjectModel(Book.name) private readonly bookModel: Model<BookDocument>
-  ){}
+    @InjectModel(Book.name) private readonly bookModel: Model<BookDocument>,
+  ) {}
 
   create(createBookDto: CreateBookDto) {
     return this.bookModel.create(createBookDto);
   }
 
-  findAll(): Promise<Book[]> {
-    return this.bookModel.find().exec();
+  async findAll(): Promise<Book[]> {
+    const result = await this.bookModel.find().exec();
+    return result;
   }
 
   findOne(id: number) {
