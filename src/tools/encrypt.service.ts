@@ -1,18 +1,20 @@
-import { Injectable } from '@nestjs/common';
-import bcrypt from 'bcrypt';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { hash, genSalt, compare } from 'bcrypt';
 
 @Injectable()
-export class Encrypt {
+export class EncryptService {
   async encrypt(password: string) {
-    const saltOrRounds = 10;
-    console.log(password);
-    
-    const result = await bcrypt.hash(password, saltOrRounds);
-    console.log(result);
+    try {
+      const salt = await genSalt(10);
 
-    return result;
+      const result = await hash(password, salt);
+
+      return result;
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
   }
   async compare(password: string, hash: string) {
-    return bcrypt.compare(password, hash);
+    return compare(password, hash);
   }
 }

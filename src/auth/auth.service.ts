@@ -3,25 +3,30 @@ import { User } from 'src/users/entities/user.entity';
 import { IUser } from 'src/users/interfaces/user.interface';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { EncryptService } from 'src/tools/encrypt.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
+    private encryptService: EncryptService,
   ) {}
 
   async validateUser(email: string, password: string): Promise<IUser> {
     try {
       const user = await this.usersService.findOneByEmail(email);
+      if (user) {
+        const isValidUser = await this.encryptService.compare(
+          user.password,
+          password,
+        );
 
-      console.log(user.password, password);
-
-      if (user && user.password === password) {
-        const { password, ...result } = user;
-        console.log(result);
-
-        return result;
+        if (isValidUser) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { password, ...result } = user;
+          return result;
+        }
       }
       return null;
     } catch (error) {
@@ -30,14 +35,8 @@ export class AuthService {
   }
 
   async login(user: User) {
-    try {
-    //   const validatedUser = await this.validateUser(user.email, user.password);
-    //   const payload = { email: validatedUser.email, sub: validatedUser.id };
-      return {
-        access_token: this.jwtService.sign(user),
-      };
-    } catch (error) {
-      throw new UnauthorizedException();
-    }
+    return {
+      access_token: this.jwtService.sign(user),
+    };
   }
 }

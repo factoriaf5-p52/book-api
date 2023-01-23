@@ -1,7 +1,7 @@
-import { Encrypt } from './encrypt.service';
+import { EncryptService } from './encrypt.service';
 
 describe('Encrypt', () => {
   it('should be defined', () => {
-    expect(new Encrypt()).toBeDefined();
+    expect(new EncryptService()).toBeDefined();
   });
 });

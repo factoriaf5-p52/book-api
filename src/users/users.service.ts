@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Encrypt } from 'src/tools/encrypt.service';
+import { EncryptService } from 'src/tools/encrypt.service';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -9,20 +9,20 @@ import { User } from './entities/user.entity';
 @Injectable()
 export class UsersService {
   constructor(
-    private encryptService: Encrypt,
+    private encryptService: EncryptService,
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
-      // console.log(createUserDto.password);
-
-      // const encryptPassword = await this.encryptService.encrypt(
-      //   createUserDto.password,
-      // );
-      // console.log(encryptPassword);
-
-      // const userEncrypted = { password: encryptPassword, ...createUserDto };
-      const result = await this.userRepository.save(createUserDto);
+      const encryptPassword = await this.encryptService.encrypt(
+        createUserDto.password,
+      );
+      const userToSave: CreateUserDto = {
+        ...createUserDto,
+        password: encryptPassword,
+      };
+      encryptPassword;
+      const result = await this.userRepository.save(userToSave);
 
       console.log(result);
       return result;

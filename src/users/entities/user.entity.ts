@@ -2,17 +2,16 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
-
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
 
-// crear validadores de campos: email, required
+  // crear validadores de campos: email, required
   @Column()
   email: string;
-//validador required
+  //validador required
   @Column()
   password: string;
 }
