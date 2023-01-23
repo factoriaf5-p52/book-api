@@ -7,10 +7,12 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dtos/create-book.dto';
 import { UpdateBookDto } from './dtos/update-book.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('books')
 export class BooksController {
@@ -33,6 +35,7 @@ export class BooksController {
     return this.booksService.findBook(bookId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   createBook(@Body() newBook: CreateBookDto) {
     // const newBook: any = body;
