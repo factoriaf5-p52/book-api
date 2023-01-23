@@ -5,7 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BooksModule } from './books/books.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { EncryptService } from './tools/encrypt.service';
+import { UserSubscriber } from './users/subscribers/user.subscriber';
+import { ToolsModule } from './tools/tools.module';
 
 @Module({
   imports: [
@@ -17,13 +18,15 @@ import { EncryptService } from './tools/encrypt.service';
       password: '',
       database: 'books',
       entities: ['dist/**/*.entity.js'],
+      // subscribers: [UserSubscriber],
       synchronize: true,
     }),
     BooksModule,
     UsersModule,
     AuthModule,
+    ToolsModule,
   ],
   controllers: [AppController],
-  providers: [AppService, EncryptService],
+  providers: [AppService],
 })
 export class AppModule {}

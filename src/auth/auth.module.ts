@@ -8,7 +8,8 @@ import { AuthService } from './auth.service';
 
 import { LocalStrategy } from './strategies/local.strategy';
 import { jwtConstants } from './constants/constant';
-import { EncryptService } from 'src/tools/encrypt.service';
+import { ToolsModule } from 'src/tools/tools.module';
+
 @Module({
   imports: [
     PassportModule,
@@ -17,9 +18,10 @@ import { EncryptService } from 'src/tools/encrypt.service';
       signOptions: { expiresIn: '1s' },
     }),
     UsersModule,
+    ToolsModule,
   ],
   controllers: [LoginController],
-  providers: [JwtStrategy, LocalStrategy, AuthService, EncryptService],
+  providers: [JwtStrategy, LocalStrategy, AuthService],
   exports: [AuthService],
 })
 export class AuthModule {}
