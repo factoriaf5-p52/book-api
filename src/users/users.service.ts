@@ -6,15 +6,19 @@ import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/user.schema';
 import { Request } from 'express';
 import { hash } from 'bcrypt';
+import { EncryptService } from 'src/tools/encrypt.service';
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    private encryptService: EncryptService,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     //to-do encryption of password
-    const hashPassword = await hash(createUserDto.password, 10);
+    const hashPassword = await this.encryptService.encrypt(
+      createUserDto.password,
+    );
     createUserDto.password = hashPassword;
 
     return this.userModel.create(createUserDto);
