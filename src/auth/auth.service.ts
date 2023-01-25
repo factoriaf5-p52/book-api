@@ -16,10 +16,11 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<IUser> {
     try {
       const user = await this.usersService.findOneByEmail(email);
+
       if (user) {
         const isValidUser = await this.encryptService.compare(
-          user.password,
           password,
+          user.password,
         );
 
         if (isValidUser) {

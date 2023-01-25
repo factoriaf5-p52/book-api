@@ -26,15 +26,17 @@ describe('BooksService', () => {
   });
   it('createBook(newBook) should return newBook', () => {
     const newBook = {
-      info: 'info',
+      title: 'newBook',
+      author: 'author',
+      description: 'desc',
     };
     expect(service.createBook(newBook)).toBe(newBook);
   });
-  it('deleteBook(5) should return "deleted with bookId: 5"',()=>{
+  it('deleteBook(5) should return "deleted with bookId: 5"', () => {
     expect(service.deleteBook('5')).toContain('5');
-  })
-  it('updateBook("5",{title:"myBook"}) should return the book title',()=>{
-    const bookUpdated ={title:"myBook"}
+  });
+  it('updateBook("5",{title:"myBook"}) should return the book title', () => {
+    const bookUpdated = { description: 'myBook' };
     expect(service.updateBook('5', bookUpdated)).toContain('myBook');
-  })
+  });
 });
