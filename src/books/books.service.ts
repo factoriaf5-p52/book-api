@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { QueryOptions } from 'mysql2';
 import { Repository } from 'typeorm';
 import { CreateBookDto } from './dtos/create-book.dto';
 import { UpdateBookDto } from './dtos/update-book.dto';
@@ -23,14 +24,16 @@ export class BooksService {
   //     }
   //   }
   findAll(params?: Params): Promise<Book[]> {
-    // let sort: string, limit: string;
-    // if (params !== undefined) ({ sort, limit } = params);
+    let sort: string, limit: string;
+    const queryCondition = {} as any;
+
+    if (params !== undefined) ({ sort, limit } = params);
     // let msg = 'findAll working';
-    // if (sort) msg = msg.concat(` with ${sort}`);
-    // if (limit) msg = msg.concat(` with ${limit}`);
+    if (sort) queryCondition.order = { title: 'DESC' };
+    if (limit) queryCondition.take = limit;
 
     // return msg;
-    return this.bookRepository.find();
+    return this.bookRepository.find(queryCondition);
   }
 
   findBook(bookId: string): Promise<Book> {

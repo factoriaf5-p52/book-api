@@ -15,7 +15,7 @@ import { ToolsModule } from 'src/tools/tools.module';
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1s' },
+      // signOptions: { expiresIn: '1s' },
     }),
     UsersModule,
     ToolsModule,
